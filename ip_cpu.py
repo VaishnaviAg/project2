@@ -1,9 +1,9 @@
 #!/usr/bin/python
-import os,sys,commands,time,getpass
+import os,sys,commands,time,getpass,subprocess
 ip_list=[]
-ip_add='192.168.10.'
-for i in range(121)[-21:] :
-	check=commands.getstatusoutput('ping -c 1 192.168.10.'+str(i))
+ip_add='192.168.50.'
+for i in range(48)[-3:] :
+	check=commands.getstatusoutput('ping -c 1 192.168.50.'+str(i))
 	if check[0] == 0 :
 		ip_list.append(ip_add+str(i))
 else :
@@ -13,23 +13,16 @@ time.sleep(2)
 print ip_list
 
 # for cpu
-cpu_list=[]
-cpu_check ="lscpu | grep -i 'CPU(s)' | head -1 | cut -d: -f2"
-
+cpu_ram_list=[]
+cpu_ram_list_main=[]
+cpu_check ="lscpu | grep -i 'CPU(s)' | head -1 | cut -d: -f2 "
+#for ram
+ram_check="cat /proc/meminfo | grep -i MemTotal"
 for i in ip_list :
-	cpu_core=commands.getoutput('ssh root@'+i+" " +cpu_check)
-	cpu_list.append(i+str(cpu_core))
-#for ram 
-ram_list=[]
-ram_check= 'cat /proc/meminfo | grep -i MemTotal'
-for i in ip_list:
-	ram_core=commands.getoutput('ssh root@'+i+" "+ram_check)
-
-for i in cpu_list:
-	ram_list.append(i + "   " + ram_core)
-print ram_list
-
-#for exit
-Exit = commands.getoutput('exit')
-print Exit
+	cpu_core=commands.getoutput('sshpass -p "redhat" ssh -o StrictHostKeyChecking=no root@'+i+" " +cpu_check )
+	ram_core=commands.getoutput('sshpass -p "redhat" ssh -o StrictHostKeyChecking=no root@'+i+" " +ram_check)
+	cpu_ram_list.append(i+str(cpu_core)+"     " +str(ram_core))
 	
+cpu_ram_list_main=tuple(cpu_ram_list)
+for i in cpu_ram_list_main :
+	print i
