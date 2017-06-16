@@ -12,9 +12,9 @@ print "scanned ip"
 time.sleep(2)
 print ip_list
 
-# for cpu
 cpu_ram_list=[]
 cpu_ram_list_main=[]
+#for cpu
 cpu_check ="lscpu | grep -i 'CPU(s)' | head -1 | cut -d: -f2 "
 #for ram
 ram_check="cat /proc/meminfo | grep -i MemTotal"
