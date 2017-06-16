@@ -1,9 +1,9 @@
 #!/usr/bin/python
 import os,sys,commands,time,getpass,subprocess
 ip_list=[]
-ip_add='192.168.50.'
-for i in range(48)[-3:] :
-	check=commands.getstatusoutput('ping -c 1 192.168.50.'+str(i))
+ip_add='192.168.10.'
+for i in range(119)[-19:] :
+	check=commands.getstatusoutput('ping -c 1 192.168.10.'+str(i))
 	if check[0] == 0 :
 		ip_list.append(ip_add+str(i))
 else :
