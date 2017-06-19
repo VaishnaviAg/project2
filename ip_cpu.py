@@ -8,7 +8,8 @@ for i in range(119)[-19:] :
 		ip_list.append(ip_add+str(i))
 else :
 	pass
-print "scanned ip"
+print '\033[1m' "Reachable ip.."
+print '\033[0m'
 time.sleep(2)
 print ip_list
 
