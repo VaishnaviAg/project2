@@ -22,7 +22,8 @@ ram_check="cat /proc/meminfo | grep -i MemTotal"
 for i in ip_list :
 	cpu_core=commands.getoutput('sshpass -p "redhat" ssh -o StrictHostKeyChecking=no root@'+i+" " +cpu_check )
 	ram_core=commands.getoutput('sshpass -p "redhat" ssh -o StrictHostKeyChecking=no root@'+i+" " +ram_check)
-	cpu_ram_list.append(i+str(cpu_core)+"     " +str(ram_core))
+	if "WARNING" not in cpu_core and "WARNING" not in ram_core :
+	     cpu_ram_list.append(i+str(cpu_core)+"     " +str(ram_core))
 	
 cpu_ram_list_main=tuple(cpu_ram_list)
 for i in cpu_ram_list_main :
